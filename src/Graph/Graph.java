@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -15,21 +16,38 @@ import java.util.stream.Stream;
  * Created by Jakub on 2015-10-22.
  */
 public abstract class Graph {
-    private LinkedList<Vertex> vertices;
+//    private LinkedList<Vertex> vertices;
+    String filenameInput, filenameOutput;
 
-    public Graph() {
-        this.vertices = new LinkedList<>();
+    public abstract void generateRandomGraph(int verticesCount, int edgesCount);
+    public abstract void addVertex(Vertex vertex);
+    public abstract void addEdge(Edge edge);
+    public abstract void addEdgeToVertex(Vertex startVertex, Vertex endVertex, Integer connectingEdgeWeight);
+    public abstract void addEdgeToVertex(Integer startVertexLabel, Integer endVertexLabel, Integer connectingEdgeWeight);
+    public abstract Vertex getVertexByLabel(Integer label);
+    public abstract void inicializeSingleSource(Integer startVertexLabel, Integer startVertexDistance);
+    public abstract Iterable<Vertex> getIterableList();
+    public abstract Integer getVertexCount();
+
+//    public Graph() {
+//        this.vertices = new LinkedList<>();
+//    }
+
+//    public Graph(Vertex vertex) {
+//        this.vertices = new LinkedList<>();
+//        this.addVertex(vertex);
+//    }
+//
+//    public void addVertex(Vertex vertex) {
+//        this.vertices.add(vertex);
+//    }
+
+    public void setFilenames(String filenameInput, String filenameOutput) {
+        this.filenameInput = filenameInput;
+        this.filenameOutput = filenameOutput;
     }
 
-    public Graph(Vertex vertex) {
-        this.vertices = new LinkedList<>();
-        this.addVertex(vertex);
-    }
 
-    public void addVertex(Vertex vertex) {
-        this.vertices.add(vertex);
-    }
-//  "C:\\Users\\Jakub\\Documents\\Java - SBobek\\class 2\\home\\exercise 1\\crossword\\dictionary\\cwdb.txt"
     protected void readGraph(String filename) {
 //        dict = new LinkedList<Entry>();
         Path path = Paths.get(filename);
@@ -59,7 +77,6 @@ public abstract class Graph {
         }
     }
 
-//  "C:\\Users\\Jakub\\Documents\\Java - SBobek\\class 2\\home\\exercise 1\\crossword\\dictionary\\cwdb.txt"
     public void saveGraph(String filename) {
         try{
             PrintWriter writer = new PrintWriter(filename, "UTF-8");
