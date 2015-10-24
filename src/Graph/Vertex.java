@@ -6,7 +6,7 @@ import java.util.Collection;
 /**
  * Created by Jakub on 2015-10-22.
  */
-public class Vertex {
+public class Vertex implements Comparable<Vertex> {
     private Integer label;
     private Integer distance;
     private Vertex parentVertex;
@@ -59,5 +59,14 @@ public class Vertex {
 
     public Iterable<Edge> getEdgesIterableList() {
         return this.edges;
+    }
+
+    @Override
+    public String toString() {
+        return this.label.toString();
+    }
+
+    public int compareTo(Vertex other) {
+        return this.distance < other.distance ? -1 : this.distance == other.distance ? 0 : 1;
     }
 }

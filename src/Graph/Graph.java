@@ -25,7 +25,7 @@ public abstract class Graph {
 //    public abstract void addEdgeToVertex(Vertex startVertex, Vertex endVertex, Integer connectingEdgeWeight);
 //    public abstract void addEdgeToVertex(Integer startVertexLabel, Integer endVertexLabel, Integer connectingEdgeWeight);
     public abstract Vertex getVertexByLabel(Integer label);
-    public abstract void inicializeSingleSource(Integer startVertexLabel, Integer startVertexDistance);
+    public abstract void initialiseSingleSource(Integer startVertexLabel, Integer startVertexDistance);
     public abstract Iterable<Vertex> getIterableList();
     public abstract Integer getVertexCount();
 
@@ -64,12 +64,14 @@ public abstract class Graph {
         } catch (IOException e) {
             System.out.print("Exception in Graph::readGraph");
         }
+
+        verticesFromFile.values().forEach(this::addVertex);
     }
 
     protected void manageStringToEdge(String[] edgeProperties, HashMap<Integer, Vertex> vertices) {
         Integer startVertexLabel = Integer.parseInt(edgeProperties[0]),
-                endVertexLabel = Integer.parseInt(edgeProperties[1]),
-                edgeWeight = Integer.parseInt(edgeProperties[2]);
+                endVertexLabel = Integer.parseInt(edgeProperties[2]),
+                edgeWeight = Integer.parseInt(edgeProperties[1]);
         Vertex startVertex = this.manageVertexInHashMap(startVertexLabel, vertices),
                 endVertex = this.manageVertexInHashMap(endVertexLabel, vertices);
         Edge newEdge = new Edge(startVertex, endVertex, edgeWeight);
@@ -79,7 +81,7 @@ public abstract class Graph {
 
     protected Vertex manageVertexInHashMap(Integer vertexLabel, HashMap<Integer, Vertex> vertices) {
         Vertex newVertex;
-
+        
         if(vertices.containsKey(vertexLabel)) {
             return vertices.get(vertexLabel);
         } else {
@@ -112,6 +114,21 @@ public abstract class Graph {
         } catch (IOException e) {
             System.out.print("Exception in Graph::saveGraph");
         }
+    }
+
+    @Override
+    public String toString() {
+        String graphAsString = new String();
+
+        for(Vertex singleVertex : this.getIterableList()) {
+            graphAsString += singleVertex.getLabel() + ":";
+            for(Edge singleEdge : singleVertex.getEdges()) {
+                graphAsString += " " + singleEdge + " ";
+            }
+            graphAsString += "\n";
+        }
+
+        return graphAsString;
     }
 }
 

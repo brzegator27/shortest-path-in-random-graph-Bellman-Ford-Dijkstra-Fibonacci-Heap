@@ -31,7 +31,7 @@ public class BellmanFord {
     }
 
     protected void mainAlgorithm() {
-        this.graph.inicializeSingleSource(startVertexLabel, 0);
+        this.graph.initialiseSingleSource(startVertexLabel, 0);
 
         for(int i = 0; i < this.graph.getVertexCount() - 1; i++) {
             for(Vertex singleVertex : this.graph.getIterableList()) {

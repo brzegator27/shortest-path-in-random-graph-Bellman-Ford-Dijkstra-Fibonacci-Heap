@@ -27,7 +27,7 @@ public class Edge implements Comparable<Edge> {
 
     @Override
     public String toString() {
-        return "[" + startVertex.toString() + " -> " + endVertex.toString() + "]";
+        return "[" + startVertex.toString() + " -(" + this.edgeWeight + ")-> " + endVertex.toString() + "]";
     }
 
     @Override
