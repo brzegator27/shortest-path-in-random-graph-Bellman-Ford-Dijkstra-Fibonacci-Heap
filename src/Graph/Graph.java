@@ -13,7 +13,8 @@ import java.util.stream.Stream;
  * Created by Jakub on 2015-10-22.
  */
 public abstract class Graph {
-    String filenameInput, filenameOutput;
+    String filenameInput,
+            filenameOutput;
     String prefixInEdgeNotation = "[";
     String postfixInEdgeNotation = "]";
     String splitterInEdgeNotation = ",";
@@ -58,14 +59,14 @@ public abstract class Graph {
                 edgeAsStringTrimmed = edgeAsString.substring(prefixLength, edgeAsStringLength - postfixLength);
                 edgeProperties = edgeAsStringTrimmed.split(this.splitterInEdgeNotation, 3);
 
-                this.manageStrignToEdge(edgeProperties, verticesFromFile);
+                this.manageStringToEdge(edgeProperties, verticesFromFile);
             }
         } catch (IOException e) {
             System.out.print("Exception in Graph::readGraph");
         }
     }
 
-    protected void manageStrignToEdge(String[] edgeProperties, HashMap<Integer, Vertex> vertices) {
+    protected void manageStringToEdge(String[] edgeProperties, HashMap<Integer, Vertex> vertices) {
         Integer startVertexLabel = Integer.parseInt(edgeProperties[0]),
                 endVertexLabel = Integer.parseInt(edgeProperties[1]),
                 edgeWeight = Integer.parseInt(edgeProperties[2]);
@@ -92,13 +93,20 @@ public abstract class Graph {
         try{
             PrintWriter writer = new PrintWriter(this.filenameOutput, "UTF-8");
 
-//            ListIterator<Entry> iterator = dict.listIterator();
+            String edgeAsString;
+            for(Vertex singleVertex : this.getIterableList()) {
+                for(Edge singleEdge : singleVertex.getEdges()) {
+                    edgeAsString = this.prefixInEdgeNotation
+                            + singleEdge.getStartVertex().getLabel()
+                            + this.splitterInEdgeNotation
+                            + singleEdge.getWeight()
+                            + this.splitterInEdgeNotation
+                            + singleEdge.getEndVertex().getLabel()
+                            + this.postfixInEdgeNotation;
 
-//            while(iterator.hasNext()) {
-//                Entry entry = iterator.next();
-//                writer.println(entry.getWord());
-//                writer.println(entry.getClue());
-//            }
+                    writer.println(edgeAsString);
+                }
+            }
 
             writer.close();
         } catch (IOException e) {
