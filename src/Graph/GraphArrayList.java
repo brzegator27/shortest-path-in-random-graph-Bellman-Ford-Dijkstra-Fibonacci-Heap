@@ -36,8 +36,8 @@ public class GraphArrayList extends Graph {
 //    }
 
     public Vertex getVertexByLabel(Integer label){
-        for(Vertex singleVertex : this.vertices) {
-            if(singleVertex.getLabel() == label) {
+        for(Vertex singleVertex : this.getIterableList()) {
+            if (singleVertex.getLabel().equals(label)) {
                 return singleVertex;
             }
         }

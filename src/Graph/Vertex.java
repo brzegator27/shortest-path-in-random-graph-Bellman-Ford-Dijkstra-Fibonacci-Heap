@@ -49,6 +49,10 @@ public class Vertex implements Comparable<Vertex> {
         this.parentVertex = parentVertex;
     }
 
+    public Vertex getParentVertex() {
+        return this.parentVertex;
+    }
+
     public Integer getLabel() {
         return this.label;
     }

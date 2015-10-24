@@ -35,6 +35,21 @@ public abstract class Graph {
         this.filenameOutput = filenameOutput;
     }
 
+    public void showBestRoute(Integer startVertexLabel, Integer endVertexLabel) {
+        Vertex vertex = this.getVertexByLabel(endVertexLabel),
+                parentVertex;
+        String endVertexLabelAsString = endVertexLabel.toString(),
+                routeAsString = new String(endVertexLabelAsString);
+
+        parentVertex = vertex.getParentVertex();
+        while(parentVertex != null) {
+            routeAsString +=  " -> " + parentVertex.getLabel().toString();
+            parentVertex = parentVertex.getParentVertex();
+        }
+
+        System.out.println(routeAsString);
+    }
+
     public void readGraph() {
         Path path = Paths.get(this.filenameInput);
         String edgeAsString;
@@ -81,7 +96,7 @@ public abstract class Graph {
 
     protected Vertex manageVertexInHashMap(Integer vertexLabel, HashMap<Integer, Vertex> vertices) {
         Vertex newVertex;
-        
+
         if(vertices.containsKey(vertexLabel)) {
             return vertices.get(vertexLabel);
         } else {
@@ -121,7 +136,7 @@ public abstract class Graph {
         String graphAsString = new String();
 
         for(Vertex singleVertex : this.getIterableList()) {
-            graphAsString += singleVertex.getLabel() + ":";
+            graphAsString += " " + singleVertex.getLabel() + "(dist " + singleVertex.getDistance() + "):\t";
             for(Edge singleEdge : singleVertex.getEdges()) {
                 graphAsString += " " + singleEdge + " ";
             }
