@@ -48,8 +48,8 @@
       <file leaf-file-name="FibonacciHeap.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/fibonacci_heap/FibonacciHeap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6770099">
-              <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+            <state vertical-scroll-proportion="-0.06770099">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding>
                 <element signature="e#164#165#0" expanded="true" />
                 <element signature="e#190#191#0" expanded="true" />
@@ -678,12 +678,12 @@
       <created>1445506969738</created>
       <option name="number" value="Default" />
       <updated>1445506969738</updated>
-      <workItem from="1445506975265" duration="46903000" />
+      <workItem from="1445506975265" duration="47239000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46903000" />
+    <option name="totallyTimeSpent" value="47239000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
@@ -922,8 +922,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/fibonacci_heap/FibonacciHeap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6770099">
-          <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+        <state vertical-scroll-proportion="-0.06770099">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
           <folding>
             <element signature="e#164#165#0" expanded="true" />
             <element signature="e#190#191#0" expanded="true" />

@@ -31,16 +31,15 @@ public class FibonacciHeap {
     }
 
     public void union(FibonacciHeap otherFibHeap) {
-        Node otherFibHeapMin = otherFibHeap.min,
-                otherFibHeapMinLeft = otherFibHeapMin.getLeft(),
-                thisFibHeapMin = this.min,
-                thisFibHeapMinRight = thisFibHeapMin.getRight();
+        Node otherFibHeapMin = otherFibHeap.min;
 
-//      null not considered!!!!
-        otherFibHeapMin.setLeft(thisFibHeapMinRight);
-        otherFibHeapMinLeft.setRight(thisFibHeapMin);
-        thisFibHeapMin.setRight(otherFibHeapMinLeft);
-        thisFibHeapMinRight.setLeft(otherFibHeapMin);
+//        null not considered!!!!
+//        otherFibHeapMin.setLeft(thisFibHeapMinRight);
+//        otherFibHeapMinLeft.setRight(thisFibHeapMin);
+//        thisFibHeapMin.setRight(otherFibHeapMinLeft);
+//        thisFibHeapMinRight.setLeft(otherFibHeapMin);
+
+        this.joinTwoNodeLists(this.min, otherFibHeapMin);
 
         if(this.min == null || (otherFibHeapMin != null && this.min.compareTo(otherFibHeapMin) == 1)) {
             this.min = otherFibHeapMin;
