@@ -1,7 +1,5 @@
 package fibonacci_heap;
 
-import java.util.ArrayList;
-
 /**
  * Created by Jakub on 2015-10-22.
  */
@@ -35,12 +33,6 @@ public class FibonacciHeap extends CircularList {
     public void union(FibonacciHeap otherFibHeap) {
         Node otherFibHeapMin = otherFibHeap.min;
 
-//        null not considered!!!!
-//        otherFibHeapMin.setLeft(thisFibHeapMinRight);
-//        otherFibHeapMinLeft.setRight(thisFibHeapMin);
-//        thisFibHeapMin.setRight(otherFibHeapMinLeft);
-//        thisFibHeapMinRight.setLeft(otherFibHeapMin);
-
         this.joinTwoNodeLists(this.min, otherFibHeapMin);
 
         if(this.min == null || (otherFibHeapMin != null && this.min.compareTo(otherFibHeapMin) == 1)) {
@@ -59,12 +51,6 @@ public class FibonacciHeap extends CircularList {
                 this.addNodeToNodeList(this.min, childNodeFromMin);
             }
             min.setChild(null);
-//            while(min.getChild() != null) {
-//                minChild = min.getChild();
-//                minNewChild = this.removeNodeFromNodeList(minChild);
-//                this.addNodeToNodeList(this.min, minChild);
-//                min.setChild(minNewChild);
-//            }
             this.removeNodeFromNodeList(min);
             if(min == min.getRight()) {
                 this.min = null;
