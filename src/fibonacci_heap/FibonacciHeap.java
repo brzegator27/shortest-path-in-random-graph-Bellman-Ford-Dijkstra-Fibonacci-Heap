@@ -1,9 +1,11 @@
 package fibonacci_heap;
 
+import java.util.ArrayList;
+
 /**
  * Created by Jakub on 2015-10-22.
  */
-public class FibonacciHeap {
+public class FibonacciHeap extends CircularList {
     private Node min;
     private int n;
 
@@ -48,63 +50,134 @@ public class FibonacciHeap {
         this.n += otherFibHeap.n;
     }
 
-    /**
-     * Method joining two nodes lists
-     * @param nodeFromFirstList node from baseList
-     * @param nodeFromSecondList node from list to be add
-     * @return First if it is not null, in other case returns second if it is not null, otherwise null.
-     */
-    private Node joinTwoNodeLists(Node nodeFromFirstList, Node nodeFromSecondList) {
-        Node nodeFromFirstListRight = nodeFromFirstList.getRight(),
-                nodeFromSecondListRight = nodeFromSecondList.getRight();
+    public Node extractMin() {
+        Node min = this.min;
 
-        if(nodeFromFirstList == null) {
-            return nodeFromSecondList;
+        if(min != null) {
+            for(Node childNodeFromMin : this.getAllNodesFromNodeList(min.getChild())) {
+                this.removeNodeFromNodeList(childNodeFromMin);
+                this.addNodeToNodeList(this.min, childNodeFromMin);
+            }
+            min.setChild(null);
+//            while(min.getChild() != null) {
+//                minChild = min.getChild();
+//                minNewChild = this.removeNodeFromNodeList(minChild);
+//                this.addNodeToNodeList(this.min, minChild);
+//                min.setChild(minNewChild);
+//            }
+            this.removeNodeFromNodeList(min);
+            if(min == min.getRight()) {
+                this.min = null;
+            } else {
+                this.min = min.getRight();
+                this.consolidate();
+            }
+            this.n--;
         }
-        if(nodeFromSecondList == null) {
-            return nodeFromFirstList;
-        }
-
-        nodeFromSecondList.setRight(nodeFromFirstListRight);
-        nodeFromSecondListRight.setLeft(nodeFromFirstList);
-        nodeFromFirstList.setRight(nodeFromSecondListRight);
-        nodeFromFirstListRight.setLeft(nodeFromSecondList);
-
-        return new Node();
+        return min;
     }
 
-    private Node addNodeToNodeList(Node nodeFromList, Node newNode) {
-        this.createNodeListFromNode(newNode);
-        return this.joinTwoNodeLists(nodeFromList, newNode);
-    }
+    private void consolidate() {
+//        This must be changed, because this.n -> log(this.n), or sth like this.
+        int nodeDegree,
+                nodesArraySize = this.n;
+        Node[] nodesOfCertainDegree = new Node[nodesArraySize];
+        Node x,
+                y,
+                tempNodeToSwitch;
 
-    /**
-     *
-     * @param nodeToRemove Node which we want to be removed from list in which it is
-     * @return If lists has other nodes one of them will be returned, otherwise null.
-     */
-    private Node removeNodeFromNodeList(Node nodeToRemove) {
-        Node removedNodeRightNeighbour = nodeToRemove.getRight(),
-                removedNodeLeftNeighbour = nodeToRemove.getLeft();
+        for(Node nodeFromHeap : this.getAllNodesFromNodeList(this.min)) {
+            x = nodeFromHeap;
+            nodeDegree = x.getDegree();
 
-        if(removedNodeRightNeighbour == removedNodeLeftNeighbour) {
-            return null;
+            while(nodesOfCertainDegree[nodeDegree] != null) {
+                y = nodesOfCertainDegree[nodeDegree];
+                if(x.compareTo(y) == 1) {
+                    tempNodeToSwitch = x;
+                    x = y;
+                    y = tempNodeToSwitch;
+                }
+                this.link(y, x);
+                nodesOfCertainDegree[nodeDegree] = null;
+                nodeDegree++;
+            }
+            nodesOfCertainDegree[nodeDegree] = x;
         }
 
-        removedNodeLeftNeighbour.setRight(removedNodeRightNeighbour);
-        removedNodeRightNeighbour.setLeft(removedNodeLeftNeighbour);
-
-        return removedNodeLeftNeighbour;
+        this.min = null;
+        for(Node node : nodesOfCertainDegree) {
+            if(node != null) {
+                if(this.min == null) {
+                    this.min = this.createNodeListFromNode(node);
+                } else {
+                    this.addNodeToNodeList(this.min, node);
+                    if(this.min.compareTo(node) == 1) {
+                        this.min = node;
+                    }
+                }
+            }
+        }
     }
 
-    private Node createNodeListFromNode(Node node) {
-        if(node == null) {
-            return null;
+    private void link(Node y, Node x) {
+        int xDegree = x.getDegree();
+
+        this.removeNodeFromNodeList(y);
+        this.addNodeToNodeList(x, y);
+        xDegree++;
+        x.setDegree(xDegree);
+        y.setMark(false);
+    }
+
+    public void decreaseKey(Node nodeToDecreaseKey, int newKeyValue) {
+        Node nodeToDecreaseKeyParent = nodeToDecreaseKey.getParent();
+
+        if(newKeyValue > nodeToDecreaseKey.getKeyValue()) {
+            System.out.println("New key value is larger than current key value!");
+            return;
         }
 
-        node.setLeft(node);
-        node.setRight(node);
-
-        return node;
+        nodeToDecreaseKey.setKeyValue(newKeyValue);
+        if(nodeToDecreaseKeyParent != null && nodeToDecreaseKey.compareTo(nodeToDecreaseKeyParent) == -1) {
+            this.cut(nodeToDecreaseKey, nodeToDecreaseKeyParent);
+            this.cascadingCut(nodeToDecreaseKeyParent);
+        }
+        if(nodeToDecreaseKey.compareTo(this.min) == -1) {
+            this.min = nodeToDecreaseKey;
+        }
     }
+
+    private void cut(Node x, Node y) {
+        int yDegree = y.getDegree();
+
+        this.removeNodeFromNodeList(x);
+        yDegree--;
+        y.setDegree(yDegree);
+        this.addNodeToNodeList(this.min, x);
+        x.setParent(null);
+        x.setMark(false);
+    }
+
+    private void cascadingCut(Node y) {
+        Node yParent = y.getParent();
+
+        if(yParent != null) {
+            if(y.getMark() == false) {
+                y.setMark(true);
+            }
+            else {
+                this.cut(y, yParent);
+                cascadingCut(yParent);
+            }
+        }
+    }
+
+//    Should we consider overflow of keyValue?
+    public void delete(Node node) {
+//        Minus 2 in case of overloading - I know it is irresponsible...
+//        ...but I don't have time now. :)
+        this.decreaseKey(node, Integer.MAX_VALUE - 2);
+        this.extractMin();
+    }
+
 }

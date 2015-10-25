@@ -46,7 +46,7 @@ public class Node implements Comparable<Node> {
         this.key = key;
     }
 
-    public boolean isMark() {
+    public boolean getMark() {
         return mark;
     }
 
@@ -72,5 +72,14 @@ public class Node implements Comparable<Node> {
 
     public int compareTo(Node other) {
         return this.getKey().compareTo(other.getKey());
+    }
+
+//    Bad architecture if I have to write something like this!
+    public void setKeyValue(int keyValue) {
+        this.key.setDistance(keyValue);
+    }
+
+    public int getKeyValue() {
+        return this.key.getDistance();
     }
 }
