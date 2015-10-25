@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Jakub on 2015-10-25.
  */
-public abstract class CircularList {
+abstract class CircularList {
     /**
      * Method joining two nodes lists
      * @param nodeFromFirstList node from baseList

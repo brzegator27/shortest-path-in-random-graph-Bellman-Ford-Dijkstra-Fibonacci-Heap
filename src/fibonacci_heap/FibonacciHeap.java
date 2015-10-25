@@ -105,6 +105,7 @@ public class FibonacciHeap extends CircularList {
         }
     }
 
+//    Variables' names x and y are not too intuitive.
     private void link(Node y, Node x) {
         int xDegree = x.getDegree();
 
@@ -133,6 +134,7 @@ public class FibonacciHeap extends CircularList {
         }
     }
 
+//    Variables' names x and y are not too intuitive.
     private void cut(Node x, Node y) {
         int yDegree = y.getDegree();
 
