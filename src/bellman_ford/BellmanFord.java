@@ -31,6 +31,7 @@ public class BellmanFord {
         optionalDistance = optionalDistance.add(BigInteger.valueOf(fromDistance));
         optionalDistance = optionalDistance.add(BigInteger.valueOf(connectingEdgeWeight));
 
+//        if()
 //        if(currentDistance.compareTo(optionalDistance) == 1) {
 //            System.out.println(currentDistance.toString());
 //            System.out.println(optionalDistance.toString());

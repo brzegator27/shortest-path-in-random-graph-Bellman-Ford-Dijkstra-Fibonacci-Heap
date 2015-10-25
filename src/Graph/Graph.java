@@ -17,6 +17,8 @@ public abstract class Graph {
             filenameOutput;
     String prefixInEdgeNotation = "[";
     String postfixInEdgeNotation = "]";
+//    String prefixInEdgeNotation = "";
+//    String postfixInEdgeNotation = "";
     String splitterInEdgeNotation = ",";
 
     public abstract void generateRandomGraph(int verticesCount, int edgesCount);
