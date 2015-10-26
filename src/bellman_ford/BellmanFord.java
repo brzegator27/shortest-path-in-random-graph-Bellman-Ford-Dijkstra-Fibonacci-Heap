@@ -11,7 +11,8 @@ import java.math.BigInteger;
  */
 public class BellmanFord {
     Graph graph;
-    Integer startVertexLabel, endVertexLabel;
+    Integer startVertexLabel,
+            endVertexLabel;
     boolean minusCycle = false;
 
     public BellmanFord(Graph graph, Integer startVertexLabel, Integer endVertexLabel) {

@@ -23,13 +23,15 @@ public abstract class Graph {
 
     public abstract void generateRandomGraph(int verticesCount, int edgesCount);
     public abstract void addVertex(Vertex vertex);
-    public abstract void addEdge(Edge edge);
+//    public abstract void addEdge(Edge edge);
 //    public abstract void addEdgeToVertex(Vertex startVertex, Vertex endVertex, Integer connectingEdgeWeight);
 //    public abstract void addEdgeToVertex(Integer startVertexLabel, Integer endVertexLabel, Integer connectingEdgeWeight);
     public abstract Vertex getVertexByLabel(Integer label);
     public abstract void initialiseSingleSource(Integer startVertexLabel, Integer startVertexDistance);
     public abstract Iterable<Vertex> getIterableList();
     public abstract Integer getVertexCount();
+    public abstract Integer getOperationalVertexCount();
+    public abstract Vertex extractMin();
 
 
     public void setFilenames(String filenameInput, String filenameOutput) {
@@ -148,17 +150,3 @@ public abstract class Graph {
         return graphAsString;
     }
 }
-
-
-//    public Graph() {
-//        this.vertices = new LinkedList<>();
-//    }
-
-//    public Graph(Vertex vertex) {
-//        this.vertices = new LinkedList<>();
-//        this.addVertex(vertex);
-//    }
-//
-//    public void addVertex(Vertex vertex) {
-//        this.vertices.add(vertex);
-//    }

@@ -1,16 +1,17 @@
 package Graph;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Created by Jakub on 2015-10-22.
  */
 public class GraphArrayList extends Graph {
-    private ArrayList<Vertex> vertices;
+    private ArrayList<Vertex> vertices,
+            verticesOperational;
 
     public GraphArrayList() {
         vertices = new ArrayList<>();
+        verticesOperational = new ArrayList<>();
     }
 
     public void generateRandomGraph(int verticesCount, int edgesCount) {
@@ -19,13 +20,14 @@ public class GraphArrayList extends Graph {
 
     public void addVertex(Vertex vertex) {
         this.vertices.add(vertex);
+        this.verticesOperational.add(vertex);
     }
 
     //This method is probably needless
-    public void addEdge(Edge edge){
-        Vertex startVertex = edge.getStartVertex();
-        startVertex.addEdge(edge);
-    }
+//    public void addEdge(Edge edge){
+//        Vertex startVertex = edge.getStartVertex();
+//        startVertex.addEdge(edge);
+//    }
 
 //    public void addEdgeToVertex(Vertex startVertex, Vertex endVertex, Integer connectingEdgeWeight) {
 //
@@ -54,15 +56,15 @@ public class GraphArrayList extends Graph {
         startVertex.setDistance(startVertexDistance);
     }
 
-    public Vertex extractMinVertex() {
-        Vertex minVertex = this.vertices.get(0);
+    public Vertex extractMin() {
+        Vertex minVertex = this.verticesOperational.get(0);
 
-        for(Vertex singleVertex : this.vertices) {
+        for(Vertex singleVertex : this.verticesOperational) {
             if(singleVertex.compareTo(minVertex) == -1) {
                 minVertex = singleVertex;
             }
         }
-
+        this.verticesOperational.remove(minVertex);
         return minVertex;
     }
 
@@ -72,5 +74,9 @@ public class GraphArrayList extends Graph {
 
     public Integer getVertexCount() {
         return this.vertices.size();
+    }
+
+    public Integer getOperationalVertexCount() {
+        return  this.verticesOperational.size();
     }
 }

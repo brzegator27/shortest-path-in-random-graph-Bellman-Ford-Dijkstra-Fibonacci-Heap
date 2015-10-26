@@ -1,5 +1,6 @@
 import Graph.GraphArrayList;
 import bellman_ford.BellmanFord;
+import dijkstra.Dijkstra;
 
 /**
  * Created by Jakub on 2015-10-22.
@@ -17,7 +18,8 @@ public class Main {
         graph_1.readGraph();
 //        graph_1.saveGraph();
 
-        new BellmanFord(graph_1, 1, 4);
+//        new BellmanFord(graph_1, 1, 4);
+        new Dijkstra(graph_1, 1, 4);
         graph_1.showBestRoute(1, 4);
 //        new BellmanFord(graph_1, 1708, 774);
 //        graph_1.showBestRoute(1708, 774);

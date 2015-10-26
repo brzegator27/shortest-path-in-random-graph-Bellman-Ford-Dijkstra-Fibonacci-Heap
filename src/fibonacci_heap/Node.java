@@ -14,6 +14,17 @@ public class Node implements Comparable<Node> {
     private Vertex key;
     private boolean mark;
 
+    public Node(Vertex vertex) {
+        this.key = vertex;
+        this.degree = 0;
+        this.parent = null;
+        this.child = null;
+        this.left = null;
+        this.right = null;
+//        Is this ok -> mark = false (???)
+        this.mark = false;
+    }
+
     public int getDegree() {
         return degree;
     }

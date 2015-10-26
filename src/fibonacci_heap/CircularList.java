@@ -28,7 +28,7 @@ abstract class CircularList {
         nodeFromFirstList.setRight(nodeFromSecondListRight);
         nodeFromFirstListRight.setLeft(nodeFromSecondList);
 
-        return new Node();
+        return nodeFromFirstList;
     }
 
     protected Node addNodeToNodeList(Node nodeFromList, Node newNode) {

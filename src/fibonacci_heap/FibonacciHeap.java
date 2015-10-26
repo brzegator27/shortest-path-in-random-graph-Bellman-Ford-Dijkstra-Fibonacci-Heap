@@ -1,5 +1,7 @@
 package fibonacci_heap;
 
+import Graph.Vertex;
+
 /**
  * Created by Jakub on 2015-10-22.
  */
@@ -9,6 +11,11 @@ public class FibonacciHeap extends CircularList {
 
     public Node getMin() {
         return min;
+    }
+
+    public void insert(Vertex vertex) {
+        Node newNode = new Node(vertex);
+        this.insert(newNode);
     }
 
     public void insert(Node newNode) {
