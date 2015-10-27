@@ -50,7 +50,7 @@ public class Node implements Comparable<Node> {
     }
 
     public Vertex getKey() {
-        return key;
+        return this.key;
     }
 
     public void setKey(Vertex key) {
@@ -92,5 +92,14 @@ public class Node implements Comparable<Node> {
 
     public int getKeyValue() {
         return this.key.getDistance();
+    }
+
+    @Override
+    public String toString() {
+        String nodeAsString = new String();
+
+        nodeAsString += this.key;
+
+        return nodeAsString;
     }
 }

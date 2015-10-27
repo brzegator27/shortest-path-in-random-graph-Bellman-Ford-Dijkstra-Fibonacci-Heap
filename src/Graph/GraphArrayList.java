@@ -14,10 +14,6 @@ public class GraphArrayList extends Graph {
         verticesOperational = new ArrayList<>();
     }
 
-    public void generateRandomGraph(int verticesCount, int edgesCount) {
-
-    }
-
     public void addVertex(Vertex vertex) {
         this.vertices.add(vertex);
         this.verticesOperational.add(vertex);
@@ -27,14 +23,6 @@ public class GraphArrayList extends Graph {
 //    public void addEdge(Edge edge){
 //        Vertex startVertex = edge.getStartVertex();
 //        startVertex.addEdge(edge);
-//    }
-
-//    public void addEdgeToVertex(Vertex startVertex, Vertex endVertex, Integer connectingEdgeWeight) {
-//
-//    }
-//
-//    public void addEdgeToVertex(Integer startVertexLabel, Integer endVertexLabel, Integer connectingEdgeWeight) {
-//
 //    }
 
     public Vertex getVertexByLabel(Integer label){
@@ -72,11 +60,11 @@ public class GraphArrayList extends Graph {
         return this.vertices;
     }
 
-    public Integer getVertexCount() {
+    public Integer getVerticesCount() {
         return this.vertices.size();
     }
 
-    public Integer getOperationalVertexCount() {
+    public Integer getVerticesOperationalCount() {
         return  this.verticesOperational.size();
     }
 }

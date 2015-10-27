@@ -16,6 +16,7 @@ public class FibonacciHeap extends CircularList {
     public void insert(Vertex vertex) {
         Node newNode = new Node(vertex);
         this.insert(newNode);
+        System.out.println(this.min + " insert ver");
     }
 
     public void insert(Node newNode) {
@@ -29,6 +30,7 @@ public class FibonacciHeap extends CircularList {
             newNode.setRight(newNode);
             this.min = newNode;
         } else {
+            this.addNodeToNodeList(this.min, newNode);
             if(this.min.compareTo(newNode) == 1) {
                 this.min = newNode;
             }
@@ -50,6 +52,10 @@ public class FibonacciHeap extends CircularList {
     }
 
     public Node extractMin() {
+        for(Node singleNode : this.getAllNodesFromNodeList(this.min)) {
+            System.out.print(singleNode + " nodeList ->");
+        }
+        System.out.println(this.min + " extractMin()");
         Node min = this.min;
 
         if(min != null) {
@@ -60,20 +66,33 @@ public class FibonacciHeap extends CircularList {
             min.setChild(null);
             this.removeNodeFromNodeList(min);
             if(min == min.getRight()) {
+                System.out.println("this.min = null");
                 this.min = null;
             } else {
                 this.min = min.getRight();
+                System.out.println(this.min + " this.min = min.getRight();");
+                for(Node singleNode : this.getAllNodesFromNodeList(this.min)) {
+                    System.out.print(singleNode + " nodeList ->");
+                }
+                for(Node singleNode : this.getAllNodesFromNodeList(this.min.getChild())) {
+                    System.out.print(singleNode + " nodeList2 ->");
+                }
                 this.consolidate();
+                for(Node singleNode : this.getAllNodesFromNodeList(this.min)) {
+                    System.out.print(singleNode + " nodeList ->");
+                }
             }
             this.n--;
         }
+        System.out.println(this.min + " this.min end");
         return min;
     }
 
     private void consolidate() {
 //        This must be changed, because this.n -> log(this.n), or sth like this.
+        Double nodesArraySizeDouble = Math.floor(Math.log(this.n) / Math.log(2));
         int nodeDegree,
-                nodesArraySize = this.n;
+                nodesArraySize = nodesArraySizeDouble.intValue() + 2;
         Node[] nodesOfCertainDegree = new Node[nodesArraySize];
         Node x,
                 y,
@@ -82,7 +101,8 @@ public class FibonacciHeap extends CircularList {
         for(Node nodeFromHeap : this.getAllNodesFromNodeList(this.min)) {
             x = nodeFromHeap;
             nodeDegree = x.getDegree();
-
+            System.out.println("nodesArraySize: " + nodesArraySize);
+            System.out.println("nodeDegree: " + nodeDegree);
             while(nodesOfCertainDegree[nodeDegree] != null) {
                 y = nodesOfCertainDegree[nodeDegree];
                 if(x.compareTo(y) == 1) {
@@ -110,6 +130,11 @@ public class FibonacciHeap extends CircularList {
                 }
             }
         }
+        System.out.println(" nodeList22 ->");
+        for(Node singleNode : this.getAllNodesFromNodeList(this.min)) {
+            System.out.print(singleNode + " nodeList22 ->");
+        }
+        System.out.println("\n");
     }
 
 //    Variables' names x and y are not too intuitive.
@@ -117,7 +142,12 @@ public class FibonacciHeap extends CircularList {
         int xDegree = x.getDegree();
 
         this.removeNodeFromNodeList(y);
-        this.addNodeToNodeList(x, y);
+        if(x.getChild() == null) {
+            this.createNodeListFromNode(y);
+            x.setChild(y);
+        } else {
+            this.addNodeToNodeList(x.getChild(), y);
+        }
         xDegree++;
         x.setDegree(xDegree);
         y.setMark(false);
@@ -157,7 +187,7 @@ public class FibonacciHeap extends CircularList {
         Node yParent = y.getParent();
 
         if(yParent != null) {
-            if(y.getMark() == false) {
+            if(!y.getMark()) {
                 y.setMark(true);
             }
             else {
@@ -173,6 +203,10 @@ public class FibonacciHeap extends CircularList {
 //        ...but I don't have time now. :)
         this.decreaseKey(node, Integer.MAX_VALUE - 2);
         this.extractMin();
+    }
+
+    public int getN() {
+        return  this.n;
     }
 
 }

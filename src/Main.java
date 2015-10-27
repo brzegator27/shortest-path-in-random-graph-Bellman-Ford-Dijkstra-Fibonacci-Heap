@@ -1,4 +1,5 @@
 import Graph.GraphArrayList;
+import Graph.GraphFibonacciHeap;
 import bellman_ford.BellmanFord;
 import dijkstra.Dijkstra;
 
@@ -13,17 +14,21 @@ public class Main {
         String fileNameOut = "C:\\Users\\Jakub\\Documents\\Java projects\\shortestPathInRandomGraphBFDFH\\resources\\simple_test_out.txt";
 
         //  "C:\\Users\\Jakub\\Documents\\Java - SBobek\\class 2\\home\\exercise 1\\crossword\\dictionary\\cwdb.txt"
-        GraphArrayList graph_1 = new GraphArrayList();
+//        GraphArrayList graph_1 = new GraphArrayList();
+        GraphFibonacciHeap graph_1 = new GraphFibonacciHeap();
+
         graph_1.setFilenames(fileNameIn, fileNameOut);
+//        graph_1.generateRandomGraph(10000, 100);
         graph_1.readGraph();
 //        graph_1.saveGraph();
+
 
 //        new BellmanFord(graph_1, 1, 4);
         new Dijkstra(graph_1, 1, 4);
         graph_1.showBestRoute(1, 4);
 //        new BellmanFord(graph_1, 1708, 774);
 //        graph_1.showBestRoute(1708, 774);
-        System.out.print(graph_1.toString());
+//        System.out.print(graph_1.toString());
 
 
 //        graph_1.toString();

@@ -41,7 +41,7 @@ public class Dijkstra {
         Vertex currentVertex;
         this.graph.initialiseSingleSource(startVertexLabel, 0);
 
-        while(this.graph.getOperationalVertexCount() > 0) {
+        while(this.graph.getVerticesOperationalCount() > 0) {
             currentVertex = this.graph.extractMin();
             for(Edge singleEdge : currentVertex.getEdges()) {
                 this.relax(singleEdge.getStartVertex(), singleEdge.getEndVertex(), singleEdge.getWeight());

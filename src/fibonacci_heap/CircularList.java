@@ -17,9 +17,13 @@ abstract class CircularList {
                 nodeFromSecondListRight = nodeFromSecondList.getRight();
 
         if(nodeFromFirstList == null) {
+            nodeFromSecondList.setRight(nodeFromSecondList);
+            nodeFromSecondList.setLeft(nodeFromSecondList);
             return nodeFromSecondList;
         }
         if(nodeFromSecondList == null) {
+            nodeFromFirstList.setRight(nodeFromFirstList);
+            nodeFromFirstList.setLeft(nodeFromFirstList);
             return nodeFromFirstList;
         }
 

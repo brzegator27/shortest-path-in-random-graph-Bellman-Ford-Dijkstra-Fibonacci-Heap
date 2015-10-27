@@ -53,7 +53,7 @@ public class BellmanFord {
     protected void mainAlgorithm() {
         this.graph.initialiseSingleSource(startVertexLabel, 0);
 
-        for(int i = 0; i < this.graph.getVertexCount() - 1; i++) {
+        for(int i = 0; i < this.graph.getVerticesCount() - 1; i++) {
             for(Vertex singleVertex : this.graph.getIterableList()) {
                 for(Edge singleEdge : singleVertex.getEdges()) {
 //                    System.out.println(singleEdge);
