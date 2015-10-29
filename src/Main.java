@@ -17,21 +17,22 @@ public class Main {
         //  "C:\\Users\\Jakub\\Documents\\Java - SBobek\\class 2\\home\\exercise 1\\crossword\\dictionary\\cwdb.txt"
         GraphArrayList graph_1 = new GraphArrayList(),
                 graph_2 = new GraphArrayList();
-//        GraphFibonacciHeap graph_1 = new GraphFibonacciHeap();
+//        GraphFibonacciHeap graph_1 = new GraphFibonacciHeap(),
+//                graph_2 = new GraphFibonacciHeap();
 
         graph_1.setFilenames(fileNameIn, fileNameOut);
         Random generator = new Random();
         Integer verticesNumber = 10000,
-                additionalEdgesNumber = 500000,
+                additionalEdgesNumber = 30000,
                 sourceVertexLabel = generator.nextInt(verticesNumber) + 1,
                 endVertexLabel = generator.nextInt(verticesNumber) + 1;
-        graph_1.generateRandomGraph(10000, additionalEdgesNumber);
+        graph_1.generateRandomGraph(verticesNumber, additionalEdgesNumber);
         graph_1.saveGraph();
 
         graph_2.setFilenames(fileNameIn, fileNameOut);
         graph_2.readGraph();
 
-//        new BellmanFord(graph_1, 1, 4);
+//        new BellmanFord(graph_2, sourceVertexLabel, endVertexLabel);
         new Dijkstra(graph_2, sourceVertexLabel, endVertexLabel);
         graph_2.showBestRoute(sourceVertexLabel, endVertexLabel);
 //        new BellmanFord(graph_1, 1708, 774);
