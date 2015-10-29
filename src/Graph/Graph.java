@@ -17,18 +17,20 @@ public abstract class Graph {
             filenameOutput;
     String prefixInEdgeNotation = "[";
     String postfixInEdgeNotation = "]";
+//    String prefixInEdgeNotation = "";
+//    String postfixInEdgeNotation = "";
     String splitterInEdgeNotation = ",";
 
-    public abstract void generateRandomGraph(int verticesCount, int edgesCount);
     public abstract void addVertex(Vertex vertex);
-    public abstract void addEdge(Edge edge);
+//    public abstract void addEdge(Edge edge);
 //    public abstract void addEdgeToVertex(Vertex startVertex, Vertex endVertex, Integer connectingEdgeWeight);
 //    public abstract void addEdgeToVertex(Integer startVertexLabel, Integer endVertexLabel, Integer connectingEdgeWeight);
     public abstract Vertex getVertexByLabel(Integer label);
     public abstract void initialiseSingleSource(Integer startVertexLabel, Integer startVertexDistance);
     public abstract Iterable<Vertex> getIterableList();
-    public abstract Integer getVertexCount();
-
+    public abstract Integer getVerticesCount();
+    public abstract Integer getVerticesOperationalCount();
+    public abstract Vertex extractMin();
 
     public void setFilenames(String filenameInput, String filenameOutput) {
         this.filenameInput = filenameInput;
@@ -38,8 +40,9 @@ public abstract class Graph {
     public void showBestRoute(Integer startVertexLabel, Integer endVertexLabel) {
         Vertex vertex = this.getVertexByLabel(endVertexLabel),
                 parentVertex;
+        Integer distance = vertex.getDistance();
         String endVertexLabelAsString = endVertexLabel.toString(),
-                routeAsString = new String(endVertexLabelAsString);
+                routeAsString = new String("dist " + distance + ": " + endVertexLabelAsString);
 
         parentVertex = vertex.getParentVertex();
         while(parentVertex != null) {
@@ -48,6 +51,64 @@ public abstract class Graph {
         }
 
         System.out.println(routeAsString);
+    }
+
+    /**
+     * Method generating random graph. Premise is that the graph is empty.
+     * @param verticesCount Number of vertices in created graph.
+     * @param additionalEdgesCount Number of edges in generated graph MINUS number of vertices.
+     */
+    public void generateRandomGraph(int verticesCount, int additionalEdgesCount) {
+        Vertex startVertex, endVertex;
+        Edge newEdge;
+        HashMap<Integer, Vertex> randomVertices = new HashMap<>();
+        Random generator = new Random();
+        Integer edgeWeight,
+                edgeLabel;
+
+        /**
+         * The circular consistent graph is created.
+         */
+        startVertex = this.manageVertexInHashMap(1, randomVertices);
+        for(int i = 2; i <= verticesCount; i++) {
+            endVertex = this.manageVertexInHashMap(i, randomVertices);
+
+            edgeWeight = generator.nextInt(10) + 1;
+            newEdge = new Edge(startVertex, endVertex, edgeWeight);
+            startVertex.addEdge(newEdge);
+
+            newEdge = new Edge(endVertex, startVertex, edgeWeight);
+            endVertex.addEdge(newEdge);
+
+            startVertex = endVertex;
+        }
+
+        endVertex = this.manageVertexInHashMap(1, randomVertices);
+
+        edgeWeight = generator.nextInt(10) + 1;
+        newEdge = new Edge(startVertex, endVertex, edgeWeight);
+        startVertex.addEdge(newEdge);
+
+        newEdge = new Edge(endVertex, startVertex, edgeWeight);
+        endVertex.addEdge(newEdge);
+
+
+        /**
+         * The additional edges are added.
+         */
+        for(int i = 0; i < additionalEdgesCount; i++) {
+            edgeLabel = generator.nextInt(verticesCount) + 1;
+            startVertex = this.manageVertexInHashMap(edgeLabel, randomVertices);
+            edgeLabel = generator.nextInt(verticesCount) + 1;
+            endVertex = this.manageVertexInHashMap(edgeLabel, randomVertices);
+
+            edgeWeight = generator.nextInt(10) + 1;
+            newEdge = new Edge(startVertex, endVertex, edgeWeight);
+            startVertex.addEdge(newEdge);
+        }
+
+
+        randomVertices.values().forEach(this::addVertex);
     }
 
     public void readGraph() {
@@ -87,10 +148,11 @@ public abstract class Graph {
         Integer startVertexLabel = Integer.parseInt(edgeProperties[0]),
                 endVertexLabel = Integer.parseInt(edgeProperties[2]),
                 edgeWeight = Integer.parseInt(edgeProperties[1]);
+
         Vertex startVertex = this.manageVertexInHashMap(startVertexLabel, vertices),
                 endVertex = this.manageVertexInHashMap(endVertexLabel, vertices);
-        Edge newEdge = new Edge(startVertex, endVertex, edgeWeight);
 
+        Edge newEdge = new Edge(startVertex, endVertex, edgeWeight);
         startVertex.addEdge(newEdge);
     }
 
@@ -146,17 +208,3 @@ public abstract class Graph {
         return graphAsString;
     }
 }
-
-
-//    public Graph() {
-//        this.vertices = new LinkedList<>();
-//    }
-
-//    public Graph(Vertex vertex) {
-//        this.vertices = new LinkedList<>();
-//        this.addVertex(vertex);
-//    }
-//
-//    public void addVertex(Vertex vertex) {
-//        this.vertices.add(vertex);
-//    }

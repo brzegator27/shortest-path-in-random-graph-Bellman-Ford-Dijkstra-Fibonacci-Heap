@@ -11,7 +11,8 @@ import java.math.BigInteger;
  */
 public class BellmanFord {
     Graph graph;
-    Integer startVertexLabel, endVertexLabel;
+    Integer startVertexLabel,
+            endVertexLabel;
     boolean minusCycle = false;
 
     public BellmanFord(Graph graph, Integer startVertexLabel, Integer endVertexLabel) {
@@ -31,6 +32,7 @@ public class BellmanFord {
         optionalDistance = optionalDistance.add(BigInteger.valueOf(fromDistance));
         optionalDistance = optionalDistance.add(BigInteger.valueOf(connectingEdgeWeight));
 
+//        if()
 //        if(currentDistance.compareTo(optionalDistance) == 1) {
 //            System.out.println(currentDistance.toString());
 //            System.out.println(optionalDistance.toString());
@@ -51,7 +53,7 @@ public class BellmanFord {
     protected void mainAlgorithm() {
         this.graph.initialiseSingleSource(startVertexLabel, 0);
 
-        for(int i = 0; i < this.graph.getVertexCount() - 1; i++) {
+        for(int i = 0; i < this.graph.getVerticesCount() - 1; i++) {
             for(Vertex singleVertex : this.graph.getIterableList()) {
                 for(Edge singleEdge : singleVertex.getEdges()) {
 //                    System.out.println(singleEdge);
