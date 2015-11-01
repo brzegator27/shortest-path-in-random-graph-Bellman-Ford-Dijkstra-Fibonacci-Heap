@@ -15,10 +15,10 @@ import java.util.stream.Stream;
 public abstract class Graph {
     String filenameInput,
             filenameOutput;
-    String prefixInEdgeNotation = "[";
-    String postfixInEdgeNotation = "]";
-//    String prefixInEdgeNotation = "";
-//    String postfixInEdgeNotation = "";
+//    String prefixInEdgeNotation = "[";
+//    String postfixInEdgeNotation = "]";
+    String prefixInEdgeNotation = "";
+    String postfixInEdgeNotation = "";
     String splitterInEdgeNotation = ",";
 
     public abstract void addVertex(Vertex vertex);
@@ -112,6 +112,10 @@ public abstract class Graph {
     }
 
     public void readGraph() {
+        if(this.filenameInput == null) {
+            return;
+        }
+
         Path path = Paths.get(this.filenameInput);
         String edgeAsString;
         String edgeAsStringTrimmed;
@@ -169,6 +173,10 @@ public abstract class Graph {
     }
 
     public void saveGraph() {
+        if(this.filenameOutput == null) {
+            return;
+        }
+
         try{
             PrintWriter writer = new PrintWriter(this.filenameOutput, "UTF-8");
 
