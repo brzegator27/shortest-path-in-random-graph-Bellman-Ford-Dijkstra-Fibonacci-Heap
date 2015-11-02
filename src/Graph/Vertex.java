@@ -1,5 +1,7 @@
 package Graph;
 
+import fibonacci_heap.Node;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -11,6 +13,8 @@ public class Vertex implements Comparable<Vertex> {
     private Integer distance;
     private Vertex parentVertex;
     private ArrayList<Edge> edges;
+
+    private Node correlatedNode = null;
 
     public Vertex(Integer label) {
         this.inicializeVertex();
@@ -70,7 +74,19 @@ public class Vertex implements Comparable<Vertex> {
         return this.label.toString();
     }
 
+    public String toStringWithDistance() {
+        return this.label.toString() + "(" + this.distance.toString() + ")";
+    }
+
     public int compareTo(Vertex other) {
         return this.distance < other.distance ? -1 : this.distance == other.distance ? 0 : 1;
+    }
+
+    public Node getCorrelatedNode() {
+        return correlatedNode;
+    }
+
+    public void setCorrelatedNode(Node correlatedNode) {
+        this.correlatedNode = correlatedNode;
     }
 }

@@ -67,4 +67,8 @@ public class GraphArrayList extends Graph {
     public Integer getVerticesOperationalCount() {
         return  this.verticesOperational.size();
     }
+
+    public void afterDistanceChange(Vertex vertexWithDecreasedDist, Integer newDistance) {
+        return;
+    }
 }

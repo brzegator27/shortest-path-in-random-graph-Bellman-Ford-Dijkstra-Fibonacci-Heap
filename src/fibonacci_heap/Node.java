@@ -98,7 +98,15 @@ public class Node implements Comparable<Node> {
     public String toString() {
         String nodeAsString = new String();
 
-        nodeAsString += this.key;
+        nodeAsString += this.key.toString();
+
+        return nodeAsString;
+    }
+
+    public String toStringWithKeyValue() {
+        String nodeAsString = new String();
+
+        nodeAsString += this.key.toStringWithDistance();
 
         return nodeAsString;
     }

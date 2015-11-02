@@ -47,14 +47,23 @@ abstract class CircularList {
      */
     protected Node removeNodeFromNodeList(Node nodeToRemove) {
         Node removedNodeRightNeighbour = nodeToRemove.getRight(),
-                removedNodeLeftNeighbour = nodeToRemove.getLeft();
+                removedNodeLeftNeighbour = nodeToRemove.getLeft(),
+                removedNodeParent = nodeToRemove.getParent();
 
-        if(removedNodeRightNeighbour == removedNodeLeftNeighbour) {
+        if(removedNodeRightNeighbour == nodeToRemove) {
+            if(removedNodeParent != null) {
+                removedNodeParent.setChild(null);
+            }
+
             return null;
         }
 
         removedNodeLeftNeighbour.setRight(removedNodeRightNeighbour);
         removedNodeRightNeighbour.setLeft(removedNodeLeftNeighbour);
+
+        if(removedNodeParent != null) {
+            removedNodeParent.setChild(removedNodeLeftNeighbour);
+        }
 
         return removedNodeLeftNeighbour;
     }
@@ -75,13 +84,13 @@ abstract class CircularList {
         Node startingNode = nodeFromList,
                 currentNode = nodeFromList;
 
-        if(currentNode != null) {
+        if (currentNode != null) {
             nodes.add(currentNode);
             currentNode = currentNode.getRight();
         }
 
 
-        while(startingNode != currentNode) {
+        while (startingNode != currentNode) {
             nodes.add(currentNode);
             currentNode = currentNode.getRight();
         }

@@ -33,6 +33,7 @@ public class Dijkstra {
 
         if(currentDistance.compareTo(optionalDistance) == 1) {
             to.setDistance(fromDistance + connectingEdgeWeight);
+            this.graph.afterDistanceChange(to, fromDistance + connectingEdgeWeight);
             to.setParentVertex(from);
         }
     }

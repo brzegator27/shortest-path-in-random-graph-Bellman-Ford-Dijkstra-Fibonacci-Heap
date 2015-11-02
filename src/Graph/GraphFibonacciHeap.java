@@ -67,4 +67,13 @@ public class GraphFibonacciHeap extends Graph {
     public Integer getVerticesOperationalCount() {
         return this.verticesOperational.getN();
     }
+
+    public FibonacciHeap getFibHeap() {
+        return this.verticesOperational;
+    }
+
+    public void afterDistanceChange(Vertex vertexWithDecreasedDist, Integer newDistance) {
+        Node correlatedNode = vertexWithDecreasedDist.getCorrelatedNode();
+        this.verticesOperational.decreaseKey(correlatedNode, newDistance);
+    }
 }
